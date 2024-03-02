@@ -3,31 +3,36 @@ import 'package:students_attendance_management_app/feature/auth/domain/entity/us
 import 'package:students_attendance_management_app/feature/auth/domain/repo/user_repo.dart';
 
 class UserRepoImpl extends UserRepo {
-  final UserRepoDataSource repo;
-  UserRepoImpl({required this.repo});
+  final UserRepoDataSource dataSource;
+  UserRepoImpl({required this.dataSource});
 
   @override
   Future<void> createUser({required UserEntity userEntity}) =>
-      repo.createUser(userEntity: userEntity);
+      dataSource.createUser(userEntity: userEntity);
 
   @override
-  Future<void> deleteUser({required String uid}) => repo.deleteUser(uid: uid);
+  Future<void> deleteUser({required String uid}) =>
+      dataSource.deleteUser(uid: uid);
 
   @override
-  Stream<UserEntity> getUser() => repo.getUser();
+  Stream<UserEntity> getUser() => dataSource.getUser();
 
   @override
   Future<void> updateUser({required UserEntity userEntity}) =>
-      repo.updateUser(userEntity: userEntity);
+      dataSource.updateUser(userEntity: userEntity);
 
   @override
-  Future<bool> isLogin() => repo.isLogin();
+  Future<bool> isLogin() => dataSource.isLogin();
 
   @override
   Future<void> signInWithEmailAndPassword(
           {required String email,
           required String password,
           required UserEntity userEntity}) =>
-      repo.signInWithEmailAndPassword(
+      dataSource.signInWithEmailAndPassword(
           email: email, password: password, userEntity: userEntity);
+
+  @override
+  Future<void> login({required String email, required String password}) =>
+      dataSource.login(email: email, password: password);
 }

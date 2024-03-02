@@ -14,6 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    // Calling is is login to check if the user is already logged in or not
     context.read<SplashBloc>().add(IsLoginEvent(context: context));
   }
 

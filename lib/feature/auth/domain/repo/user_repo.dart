@@ -11,4 +11,5 @@ abstract class UserRepo {
     required String password,
     required UserEntity userEntity,
   });
+  Future<void> login({required String email, required String password});
 }

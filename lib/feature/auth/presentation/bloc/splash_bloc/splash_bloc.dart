@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,27 +21,43 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     on<IsLoginEvent>((event, emit) => _isLogin(event));
   }
   Future<void> _isLogin(
-    IsLoginEvent event,
+    IsLoginEvent event2,
   ) async {
     try {
+      // Checking if user is logged in
       bool login = await isLogin();
+      final Completer<void> completer = Completer();
       if (login == true) {
         UserEntity user = const UserEntity();
-        getUser().listen((event) {
+        // if user is logged in we get the his/her data and navigate them to the home screen
+        getUser.call().listen((event) {
           user = event;
-        }).onDone(() {
-          if (event.context.mounted) {
-            Navigator.popUntil(event.context, (route) => route.isFirst);
+          completer.complete();
+        })
+          ..onDone(() {
+            completer.complete();
+          })
+          ..onError((e) => completer.complete());
+        await completer.future;
+        //Checking if the user is null or not
+        // if null we navigate them to login screen else to home screen
+        if (user.uid != null) {
+          //Waiting just to show splash screen we can remove this at anytime
+          await Future.delayed(const Duration(seconds: 2));
+          if (event2.context.mounted) {
+            Navigator.popUntil(event2.context, (route) => route.isFirst);
             Navigator.pushNamed(
-              event.context,
+              event2.context,
               RouteConsts.home,
               arguments: user,
             );
           }
-        });
-      } else {
-        if (event.context.mounted) {
-          Navigator.pushNamed(event.context, RouteConsts.login);
+        } else {
+          //Waiting just to show splash screen we can remove this at anytime
+          await Future.delayed(const Duration(seconds: 2));
+          if (event2.context.mounted) {
+            Navigator.pushNamed(event2.context, RouteConsts.login);
+          }
         }
       }
     } on FirebaseAuthException catch (e) {

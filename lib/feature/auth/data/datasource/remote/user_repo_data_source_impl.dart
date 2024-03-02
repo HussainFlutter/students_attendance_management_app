@@ -40,6 +40,7 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
         createAt: DateTime.now(),
         lastAttendanceAt: null,
         attendance: false,
+        admin: false,
       );
       await firestore.collection(user).doc(model.uid).set(
             model.toMap(),
@@ -105,6 +106,16 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
       }
     } catch (e) {
       customPrint(message: "isLogin $e");
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> login({required String email, required String password}) async {
+    try {
+      await auth.signInWithEmailAndPassword(email: email, password: password);
+    } catch (e) {
+      customPrint(message: "login $e");
       rethrow;
     }
   }

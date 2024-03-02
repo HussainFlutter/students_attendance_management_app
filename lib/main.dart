@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:students_attendance_management_app/config/on_generate_route.dart';
 import 'package:students_attendance_management_app/core/constants.dart';
+import 'package:students_attendance_management_app/feature/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/bloc/splash_bloc/splash_bloc.dart';
+import 'package:students_attendance_management_app/feature/for_students/home/presentation/bloc/home_bloc.dart';
 import 'package:students_attendance_management_app/main_injection_container.dart';
 
 import 'firebase_options.dart';
@@ -27,6 +29,12 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => sl<SplashBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<AuthBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<HomeBloc>(),
           ),
         ],
         child: MaterialApp(

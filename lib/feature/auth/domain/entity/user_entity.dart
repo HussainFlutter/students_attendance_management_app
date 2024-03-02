@@ -6,6 +6,7 @@ class UserEntity extends Equatable {
   final DateTime? createAt;
   final DateTime? lastAttendanceAt;
   final bool? attendance;
+  final bool? admin;
 
   const UserEntity({
     this.attendance,
@@ -13,9 +14,10 @@ class UserEntity extends Equatable {
     this.name,
     this.createAt,
     this.lastAttendanceAt,
+    this.admin,
   });
 
   @override
   List<Object?> get props =>
-      [attendance, uid, name, createAt, lastAttendanceAt];
+      [attendance, uid, name, createAt, lastAttendanceAt, admin];
 }

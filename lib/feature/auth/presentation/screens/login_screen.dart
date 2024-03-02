@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:students_attendance_management_app/core/constants.dart';
 import 'package:students_attendance_management_app/feature/z_global_widgets/custom_text_form_field.dart';
 import 'package:students_attendance_management_app/feature/z_global_widgets/custon_button.dart';
+
+import '../bloc/auth_bloc/auth_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -58,7 +61,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            CustomButton(title: "Login", onTap: () {}),
+            CustomButton(
+                title: "Login",
+                onTap: () {
+                  context.read<AuthBloc>().add(LoginEvent(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        context: context,
+                      ));
+                }),
             0.05.sizeH(context),
             TextButton(
               child: const Text(
@@ -67,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(),
               ),
               onPressed: () {
-                //TODO: Navigate to sign up screen
+                Navigator.pushReplacementNamed(context, RouteConsts.signUp);
               },
             ),
           ],

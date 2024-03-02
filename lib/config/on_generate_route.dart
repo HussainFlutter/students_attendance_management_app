@@ -4,7 +4,8 @@ import 'package:students_attendance_management_app/feature/auth/domain/entity/us
 import 'package:students_attendance_management_app/feature/auth/presentation/screens/login_screen.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/screens/signup_screen.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/screens/splash_screen.dart';
-import 'package:students_attendance_management_app/feature/home/presentation/screens/home_screen.dart';
+
+import '../feature/for_students/home/presentation/screens/home_screen.dart';
 
 Route onGenerate(RouteSettings settings) {
   switch (settings.name) {
