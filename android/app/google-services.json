@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "654126609872",
+    "project_id": "students-attendance-app-e9431",
+    "storage_bucket": "students-attendance-app-e9431.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654126609872:android:9a48d30e663d48e3d0f5d5",
+        "android_client_info": {
+          "package_name": "com.example.students_attendance_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8qqoXE0OkS28lV3bvoIFl0YbrtIJhy_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
