@@ -11,8 +11,7 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(
-            horizontal: 0.1.mediaW(context),
-            vertical: 0.05.mediaH(context),
+            horizontal: 0.2.mediaW(context),
           ),
         ),
         onPressed: onTap,
