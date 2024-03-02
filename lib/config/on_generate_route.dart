@@ -5,7 +5,7 @@ import 'package:students_attendance_management_app/feature/auth/presentation/scr
 import 'package:students_attendance_management_app/feature/auth/presentation/screens/signup_screen.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/screens/splash_screen.dart';
 
-import '../feature/for_students/home/presentation/screens/home_screen.dart';
+import '../feature/for_students/presentation/screens/home_screen.dart';
 
 Route onGenerate(RouteSettings settings) {
   switch (settings.name) {

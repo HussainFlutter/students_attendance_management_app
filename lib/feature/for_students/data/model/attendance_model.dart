@@ -1,4 +1,4 @@
-import 'package:students_attendance_management_app/feature/for_students/home/domain/entity/attendance_entity.dart';
+import '../../domain/entity/attendance_entity.dart';
 
 class AttendanceModel extends AttendanceEntity {
   final String? id;

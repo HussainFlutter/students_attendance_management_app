@@ -1,7 +1,7 @@
-import 'package:students_attendance_management_app/feature/for_students/home/data/data_source/remote/student_remote_data_source.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/domain/entity/applcation_entity.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/domain/entity/attendance_entity.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/domain/repo/student_repo.dart';
+import '../../domain/entity/applcation_entity.dart';
+import '../../domain/entity/attendance_entity.dart';
+import '../../domain/repo/student_repo.dart';
+import '../data_source/remote/student_remote_data_source.dart';
 
 class StudentRepoImpl extends StudentRepo {
   final StudentRepoRemoteDataSource dataSource;

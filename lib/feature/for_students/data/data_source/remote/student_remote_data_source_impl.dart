@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:students_attendance_management_app/core/constants.dart';
-import 'package:students_attendance_management_app/feature/auth/data/model/user_model.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/data/data_source/remote/student_remote_data_source.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/data/model/application_model.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/data/model/attendance_model.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/domain/entity/applcation_entity.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/domain/entity/attendance_entity.dart';
+import 'package:students_attendance_management_app/feature/for_students/data/data_source/remote/student_remote_data_source.dart';
 
-import '../../../../../../main_injection_container.dart';
+import '../../../../../core/constants.dart';
+import '../../../../../main_injection_container.dart';
+import '../../../../auth/data/model/user_model.dart';
+import '../../../domain/entity/applcation_entity.dart';
+import '../../../domain/entity/attendance_entity.dart';
+import '../../model/application_model.dart';
+import '../../model/attendance_model.dart';
 
 class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
   final application = FirebaseConsts.application;

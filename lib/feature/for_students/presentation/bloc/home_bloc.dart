@@ -2,11 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:students_attendance_management_app/core/constants.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/domain/usecase/attendance_status_usecase.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/domain/usecase/get_student_attendance_usecase.dart';
-import 'package:students_attendance_management_app/feature/for_students/home/domain/usecase/mark_attendance_usecase.dart';
 
 import '../../domain/usecase/apply_for_leave_usecase.dart';
+import '../../domain/usecase/attendance_status_usecase.dart';
+import '../../domain/usecase/get_student_attendance_usecase.dart';
+import '../../domain/usecase/mark_attendance_usecase.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
