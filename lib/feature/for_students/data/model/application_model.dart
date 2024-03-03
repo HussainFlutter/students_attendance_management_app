@@ -6,9 +6,11 @@ class ApplicationModel extends ApplicationEntity {
   final String? name;
   final String? paragraph;
   final DateTime? createAt;
+  final String? email;
 
   const ApplicationModel({
     this.applicationId,
+    this.email,
     this.uid,
     this.name,
     this.paragraph,
@@ -19,6 +21,7 @@ class ApplicationModel extends ApplicationEntity {
           name: name,
           paragraph: paragraph,
           createAt: createAt,
+          email: email,
         );
 
   Map<String, dynamic> toMap() {
@@ -28,16 +31,18 @@ class ApplicationModel extends ApplicationEntity {
       'name': name,
       'paragraph': paragraph,
       'createAt': createAt,
+      'email': email,
     };
   }
 
-  factory ApplicationModel.fromMap(Map<String, dynamic> map) {
+  factory ApplicationModel.fromSnapshot(Map<String, dynamic> map) {
     return ApplicationModel(
       applicationId: map['applicationId'] as String,
       uid: map['uid'] as String,
       name: map['name'] as String,
       paragraph: map['paragraph'] as String,
       createAt: map['createAt']?.toDate(),
+      email: map['email'],
     );
   }
 }

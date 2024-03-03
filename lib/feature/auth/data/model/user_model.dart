@@ -3,14 +3,18 @@ import 'package:students_attendance_management_app/feature/auth/domain/entity/us
 class UserModel extends UserEntity {
   final String? uid;
   final String? name;
+  final String? profilePic;
   final DateTime? createAt;
   final DateTime? lastAttendanceAt;
   final bool? attendance;
   final bool? admin;
+  final String? email;
 
   const UserModel({
     this.attendance,
     this.uid,
+    this.email,
+    this.profilePic,
     this.admin,
     this.name,
     this.createAt,
@@ -19,9 +23,11 @@ class UserModel extends UserEntity {
           attendance: attendance,
           uid: uid,
           name: name,
+          profilePic: profilePic,
           createAt: createAt,
           lastAttendanceAt: lastAttendanceAt,
           admin: admin,
+          email: email,
         );
 
   factory UserModel.fromSnapshot(Map<String, dynamic> data) {
@@ -32,6 +38,8 @@ class UserModel extends UserEntity {
       uid: data["uid"],
       attendance: data["attendance"],
       admin: data["admin"],
+      profilePic: data["profilePic"],
+      email: data["email"],
     );
   }
 
@@ -43,6 +51,8 @@ class UserModel extends UserEntity {
       "uid": uid,
       "attendance": attendance,
       "admin": admin,
+      "profilePic": profilePic,
+      "email": email,
     };
   }
 }

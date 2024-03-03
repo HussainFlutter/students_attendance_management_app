@@ -12,4 +12,6 @@ abstract class UserRepo {
     required UserEntity userEntity,
   });
   Future<void> login({required String email, required String password});
+  Future<void> uploadProfilePic(
+      {required String profilePic, required String uid});
 }

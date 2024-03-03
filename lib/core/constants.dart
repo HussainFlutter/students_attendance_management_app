@@ -9,12 +9,26 @@ class FirebaseConsts {
   static const attendance = "attendance";
 }
 
+class ImageConsts {
+  static const logo = "assets/images/logo.jpg";
+}
+
 // Route consts for navigation
 class RouteConsts {
+  //Student only Screens
   static const home = "HomeScreen";
+  static const viewMyAttendance = "View Attendance Screen";
+  static const writeApplication = "Write Application Screen";
+  //Admin Screens
+  static const adminScreen = "Admin Screen";
+  static const loggedInStudentsScreen = "Logged In Students Screen";
+  static const viewApplications = "View Applications Screen";
+  static const viewAllAttendance = "View All Attendance Screen";
+  //Global Screens
   static const splashScreen = "/";
   static const signUp = "SignUpScreen";
-  static const login = "Login";
+  static const login = "Login Screen";
+  static const profileScreen = "Profile Screen";
 }
 
 //Some extensions for MediaQuery and SizedBox

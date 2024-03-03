@@ -27,10 +27,11 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       // Checking if user is logged in
       bool login = await isLogin();
       final Completer<void> completer = Completer();
+      final StreamSubscription get;
       if (login == true) {
         UserEntity user = const UserEntity();
         // if user is logged in we get the his/her data and navigate them to the home screen
-        getUser.call().listen((event) {
+        get = getUser.call().listen((event) {
           user = event;
           completer.complete();
         })
@@ -39,25 +40,42 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           })
           ..onError((e) => completer.complete());
         await completer.future;
+        get.cancel();
         //Checking if the user is null or not
         // if null we navigate them to login screen else to home screen
         if (user.uid != null) {
           //Waiting just to show splash screen we can remove this at anytime
           await Future.delayed(const Duration(seconds: 2));
           if (event2.context.mounted) {
-            Navigator.popUntil(event2.context, (route) => route.isFirst);
-            Navigator.pushNamed(
-              event2.context,
-              RouteConsts.home,
-              arguments: user,
-            );
+            if (user.admin == true) {
+              // Navigate to admin panel
+              Navigator.popUntil(event2.context, (route) => route.isFirst);
+              Navigator.pushReplacementNamed(
+                event2.context,
+                RouteConsts.adminScreen,
+                arguments: user,
+              );
+            } else {
+              Navigator.popUntil(event2.context, (route) => route.isFirst);
+              Navigator.pushReplacementNamed(
+                event2.context,
+                RouteConsts.home,
+                arguments: user,
+              );
+            }
+          } else {
+            //Waiting just to show splash screen we can remove this at anytime
+            await Future.delayed(const Duration(seconds: 2));
+            if (event2.context.mounted) {
+              Navigator.pushNamed(event2.context, RouteConsts.login);
+            }
           }
-        } else {
-          //Waiting just to show splash screen we can remove this at anytime
-          await Future.delayed(const Duration(seconds: 2));
-          if (event2.context.mounted) {
-            Navigator.pushNamed(event2.context, RouteConsts.login);
-          }
+        }
+      } else {
+        //Waiting just to show splash screen we can remove this at anytime
+        await Future.delayed(const Duration(seconds: 2));
+        if (event2.context.mounted) {
+          Navigator.pushNamed(event2.context, RouteConsts.login);
         }
       }
     } on FirebaseAuthException catch (e) {

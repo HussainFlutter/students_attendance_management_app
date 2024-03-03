@@ -45,6 +45,14 @@ dependencies:
   get_it: ^7.6.7
   fluttertoast: ^8.2.4
   uuid: ^4.3.3
+  flutter_background_service: ^5.0.5
+  flutter_background_service_ios: ^5.0.0
+  cached_network_image: ^3.3.1
+  image_picker: ^1.0.7
+  firebase_storage: ^11.6.7
+  image_cropper: ^5.0.1
+  permission_handler: ^11.3.0
+  readmore: ^2.2.0
 
 
 dev_dependencies:

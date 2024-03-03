@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:students_attendance_management_app/core/constants.dart';
 import 'package:students_attendance_management_app/feature/auth/data/datasource/remote/user_repo_data_source.dart';
 import 'package:students_attendance_management_app/feature/auth/data/model/user_model.dart';
@@ -11,9 +14,10 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
   final firestore = sl<FirebaseFirestore>();
   final auth = sl<FirebaseAuth>();
   final String user = FirebaseConsts.user;
+  final storage = sl<FirebaseStorage>();
 
   @override
-  Future<void> signInWithEmailAndPassword({
+  Future<void> signUpWithEmailAndPassword({
     required String email,
     required String password,
     required UserEntity userEntity,
@@ -22,7 +26,8 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
       await auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) async {
-        final user = UserEntity(name: userEntity.name, uid: value.user!.uid);
+        final user = UserEntity(
+            email: email, name: userEntity.name, uid: value.user!.uid);
         await createUser(userEntity: user);
       });
     } catch (e) {
@@ -41,6 +46,7 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
         lastAttendanceAt: null,
         attendance: false,
         admin: false,
+        email: userEntity.email,
       );
       await firestore.collection(user).doc(model.uid).set(
             model.toMap(),
@@ -89,7 +95,10 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
       if (userEntity.attendance != null) {
         data["attendance"] = userEntity.attendance;
       }
-      await firestore.collection(user).doc().update(data);
+      if (userEntity.profilePic != null && userEntity.profilePic != "") {
+        data["profilePic"] = userEntity.profilePic;
+      }
+      await firestore.collection(user).doc(userEntity.uid).update(data);
     } catch (e) {
       customPrint(message: "updateUser $e");
       rethrow;
@@ -116,6 +125,23 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
       await auth.signInWithEmailAndPassword(email: email, password: password);
     } catch (e) {
       customPrint(message: "login $e");
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> uploadProfilePic(
+      {required String profilePic, required String uid}) async {
+    try {
+      final image = await storage.ref(uid).putFile(File(profilePic));
+      final imageUrl = await image.ref.getDownloadURL();
+      await updateUser(
+          userEntity: UserEntity(
+        profilePic: imageUrl,
+        uid: uid,
+      ));
+    } catch (e) {
+      customPrint(message: "uploadProfilePic $e");
       rethrow;
     }
   }

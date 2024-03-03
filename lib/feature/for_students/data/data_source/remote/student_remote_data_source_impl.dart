@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:students_attendance_management_app/feature/auth/domain/entity/user_entity.dart';
 import 'package:students_attendance_management_app/feature/for_students/data/data_source/remote/student_remote_data_source.dart';
 
 import '../../../../../core/constants.dart';
@@ -12,24 +13,33 @@ import '../../model/attendance_model.dart';
 class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
   final application = FirebaseConsts.application;
   final myAttendance = FirebaseConsts.myAttendance;
-  final attendance = FirebaseConsts.attendance;
+  final attendanceCollection = FirebaseConsts.attendance;
   final user = FirebaseConsts.user;
   final FirebaseFirestore firestore = sl<FirebaseFirestore>();
 
   @override
-  Future<void> markAttendance(
-      {required String name, required String uid}) async {
+  Future<void> markAttendance({
+    required String name,
+    required String email,
+    required String uid,
+    required bool attendance,
+  }) async {
     try {
+      //Updating the student information
       await firestore.collection(user).doc(uid).update({
-        "attendance": true,
+        "attendance": attendance,
         "lastAttendanceAt": DateTime.now(),
       }).then((value) {
         final id = randomId.v1();
         final AttendanceModel attendanceModel = AttendanceModel(
           name: name,
           uid: uid,
-          markedAt: DateTime.now(),
+          markedAt: attendance == true
+              ? DateTime.now()
+              : DateTime.now().subtract(const Duration(days: 1)),
           id: id,
+          attendance: attendance,
+          email: email,
         );
         // Adding attendance to the user's attendance collection
         firestore
@@ -39,7 +49,10 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
             .doc(id)
             .set(attendanceModel.toMap());
         //Adding attendance to the attendance collection
-        firestore.collection(attendance).doc(id).set(attendanceModel.toMap());
+        firestore
+            .collection(attendanceCollection)
+            .doc(id)
+            .set(attendanceModel.toMap());
       });
     } catch (e) {
       customPrint(message: e.toString());
@@ -58,6 +71,7 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
         createAt: DateTime.now(),
         paragraph: applicationEntity.paragraph,
         uid: applicationEntity.uid,
+        email: applicationEntity.email,
       );
       //Sending application to data base
       await firestore
@@ -71,11 +85,10 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
   }
 
   @override
-  Stream<bool> attendanceStatus({required String uid}) {
+  Stream<UserEntity> attendanceStatus({required String uid}) {
     try {
       return firestore.collection(user).doc(uid).snapshots().map((event) =>
-          UserModel.fromSnapshot(event.data() as Map<String, dynamic>)
-              .attendance!);
+          UserModel.fromSnapshot(event.data() as Map<String, dynamic>));
     } catch (e) {
       customPrint(message: e.toString());
       rethrow;

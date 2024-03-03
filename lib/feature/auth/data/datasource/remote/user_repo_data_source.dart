@@ -6,10 +6,12 @@ abstract class UserRepoDataSource {
   Future<void> updateUser({required UserEntity userEntity});
   Stream<UserEntity> getUser();
   Future<bool> isLogin();
-  Future<void> signInWithEmailAndPassword({
+  Future<void> signUpWithEmailAndPassword({
     required String email,
     required String password,
     required UserEntity userEntity,
   });
   Future<void> login({required String email, required String password});
+  Future<void> uploadProfilePic(
+      {required String profilePic, required String uid});
 }

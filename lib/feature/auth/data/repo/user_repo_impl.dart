@@ -29,10 +29,15 @@ class UserRepoImpl extends UserRepo {
           {required String email,
           required String password,
           required UserEntity userEntity}) =>
-      dataSource.signInWithEmailAndPassword(
+      dataSource.signUpWithEmailAndPassword(
           email: email, password: password, userEntity: userEntity);
 
   @override
   Future<void> login({required String email, required String password}) =>
       dataSource.login(email: email, password: password);
+
+  @override
+  Future<void> uploadProfilePic(
+          {required String profilePic, required String uid}) =>
+      dataSource.uploadProfilePic(profilePic: profilePic, uid: uid);
 }

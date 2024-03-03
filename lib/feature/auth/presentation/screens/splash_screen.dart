@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:students_attendance_management_app/core/constants.dart';
 
 import '../bloc/splash_bloc/splash_bloc.dart';
 
@@ -25,7 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset("assets/images/logo.jpg"),
+            Image.asset(
+              "assets/images/logo.jpg",
+              height: 0.2.mediaH(context),
+              width: 0.5.mediaW(context),
+            ),
             const CircularProgressIndicator(),
           ],
         ),

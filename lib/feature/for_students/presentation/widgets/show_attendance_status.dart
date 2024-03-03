@@ -9,8 +9,15 @@ import '../bloc/home_bloc.dart';
 class ShowAttendanceStatus extends StatefulWidget {
   final String uid;
   final String name;
-  const ShowAttendanceStatus(
-      {super.key, required this.uid, required this.name});
+  final String email;
+  final ValueChanged<String> profilePic;
+  const ShowAttendanceStatus({
+    super.key,
+    required this.uid,
+    required this.name,
+    required this.profilePic,
+    required this.email,
+  });
 
   @override
   State<ShowAttendanceStatus> createState() => _ShowAttendanceStatusState();
@@ -25,7 +32,7 @@ class _ShowAttendanceStatusState extends State<ShowAttendanceStatus> {
         // Checking if the connection is active
         if (snapshot.connectionState == ConnectionState.active) {
           // then showing attendance status
-          if (snapshot.data == true) {
+          if (snapshot.data!.attendance == true) {
             return const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -53,7 +60,9 @@ class _ShowAttendanceStatusState extends State<ShowAttendanceStatus> {
                     title: "Mark Attendance",
                     onTap: () {
                       context.read<HomeBloc>().add(MarkAttendanceEvent(
-                          name: widget.name, uid: widget.uid));
+                          email: widget.email,
+                          name: widget.name,
+                          uid: widget.uid));
                     }),
               ],
             );

@@ -8,6 +8,7 @@ import 'package:students_attendance_management_app/feature/auth/domain/usecases/
 import 'package:students_attendance_management_app/feature/auth/domain/usecases/login_usecase.dart';
 import 'package:students_attendance_management_app/feature/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
 import 'package:students_attendance_management_app/feature/auth/domain/usecases/update_user_usecase.dart';
+import 'package:students_attendance_management_app/feature/auth/domain/usecases/upload_profile_pic_usecase.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/bloc/splash_bloc/splash_bloc.dart';
 
@@ -19,9 +20,11 @@ Future<void> authInjection() async {
   sl.registerFactory(() =>
       SplashBloc(isLogin: sl<IsLoginUseCase>(), getUser: sl<GetUserUseCase>()));
   sl.registerFactory(() => AuthBloc(
-      signUp: sl<SignInWithEmailAndPasswordUseCase>(),
-      getUser: sl<GetUserUseCase>(),
-      login: sl<LoginUseCase>()));
+        signUp: sl<SignInWithEmailAndPasswordUseCase>(),
+        getUser: sl<GetUserUseCase>(),
+        login: sl<LoginUseCase>(),
+        upload: sl<UploadProfilePicUseCase>(),
+      ));
   //Use Cases
   sl.registerLazySingleton(() => CreateUserUseCase(repo: sl<UserRepo>()));
   sl.registerLazySingleton(() => DeleteUserUseCase(repo: sl<UserRepo>()));
@@ -29,6 +32,7 @@ Future<void> authInjection() async {
   sl.registerLazySingleton(() => GetUserUseCase(repo: sl<UserRepo>()));
   sl.registerLazySingleton(() => IsLoginUseCase(repo: sl<UserRepo>()));
   sl.registerLazySingleton(() => LoginUseCase(repo: sl<UserRepo>()));
+  sl.registerLazySingleton(() => UploadProfilePicUseCase(repo: sl<UserRepo>()));
   sl.registerLazySingleton(
       () => SignInWithEmailAndPasswordUseCase(repo: sl<UserRepo>()));
   // Repositories
