@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:students_attendance_management_app/core/constants.dart';
 import 'package:students_attendance_management_app/feature/admin/domain/usecase/get_all_student_attendances_usecase.dart';
 
 import '../../../../main_injection_container.dart';
@@ -35,6 +36,11 @@ class _ViewStudentsAttendanceState extends State<ViewStudentsAttendance> {
                   itemBuilder: (context, index) {
                     final indexData = data[index];
                     return ListTile(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        RouteConsts.attendanceDetailsScreen,
+                        arguments: indexData,
+                      ),
                       leading: CircleAvatar(
                         backgroundColor: indexData.attendance == false
                             ? Colors.red

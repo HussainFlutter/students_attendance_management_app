@@ -24,6 +24,9 @@ class RouteConsts {
   static const loggedInStudentsScreen = "Logged In Students Screen";
   static const viewApplications = "View Applications Screen";
   static const viewAllAttendance = "View All Attendance Screen";
+  static const attendanceDetailsScreen = "Attendance Details Screen";
+  static const editAttendanceScreen = "Edit Attendance Screen";
+  static const addAttendanceScreen = "Add Attendance Screen";
   //Global Screens
   static const splashScreen = "/";
   static const signUp = "SignUpScreen";

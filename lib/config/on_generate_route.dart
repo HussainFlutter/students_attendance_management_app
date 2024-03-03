@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:students_attendance_management_app/core/constants.dart';
 import 'package:students_attendance_management_app/feature/admin/presentation/screens/admin_screen.dart';
+import 'package:students_attendance_management_app/feature/admin/presentation/screens/attendance_details_page.dart';
 import 'package:students_attendance_management_app/feature/admin/presentation/screens/view_logged_in_students.dart';
 import 'package:students_attendance_management_app/feature/auth/domain/entity/user_entity.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/screens/login_screen.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/screens/profile_screen.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/screens/signup_screen.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/screens/splash_screen.dart';
+import 'package:students_attendance_management_app/feature/for_students/domain/entity/attendance_entity.dart';
 import 'package:students_attendance_management_app/feature/for_students/presentation/screens/view_attendance.dart';
 import 'package:students_attendance_management_app/feature/for_students/presentation/screens/write_application.dart';
 
+import '../feature/admin/presentation/screens/edit_student_details.dart';
 import '../feature/admin/presentation/screens/view_leave_applications.dart';
 import '../feature/admin/presentation/screens/view_student_attendance.dart';
 import '../feature/for_students/presentation/screens/home_screen.dart';
@@ -48,6 +51,16 @@ Route onGenerate(RouteSettings settings) {
     case RouteConsts.viewAllAttendance:
       return MaterialPageRoute(
           builder: (context) => const ViewStudentsAttendance());
+    case RouteConsts.attendanceDetailsScreen:
+      return MaterialPageRoute(
+          builder: (context) => AttendanceDetailsPage(
+                attendance: settings.arguments as AttendanceEntity,
+              ));
+    case RouteConsts.editAttendanceScreen:
+      return MaterialPageRoute(
+          builder: (context) => EditAttendanceScreen(
+                attendance: settings.arguments as AttendanceEntity,
+              ));
     //Global Screens
     case RouteConsts.login:
       return MaterialPageRoute(builder: (context) => const LoginScreen());

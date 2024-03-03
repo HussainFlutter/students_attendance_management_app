@@ -6,4 +6,6 @@ abstract class AdminRepo {
   Stream<List<ApplicationEntity>?> getAllLeaveApplications();
   Stream<List<UserEntity>?> getAllLoggedInStudents();
   Stream<List<AttendanceEntity>?> getAllAttendances();
+  Future<void> deleteAttendance({required String id, required String uid});
+  Future<void> updateAttendance({required AttendanceEntity attendance});
 }

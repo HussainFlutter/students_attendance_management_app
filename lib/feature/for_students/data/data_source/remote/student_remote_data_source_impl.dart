@@ -29,7 +29,7 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
       await firestore.collection(user).doc(uid).update({
         "attendance": attendance,
         "lastAttendanceAt": DateTime.now(),
-      }).then((value) {
+      }).then((value) async {
         final id = randomId.v1();
         final AttendanceModel attendanceModel = AttendanceModel(
           name: name,
@@ -42,14 +42,14 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
           email: email,
         );
         // Adding attendance to the user's attendance collection
-        firestore
+        await firestore
             .collection(user)
             .doc(uid)
             .collection(myAttendance)
             .doc(id)
             .set(attendanceModel.toMap());
         //Adding attendance to the attendance collection
-        firestore
+        await firestore
             .collection(attendanceCollection)
             .doc(id)
             .set(attendanceModel.toMap());

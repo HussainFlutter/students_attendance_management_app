@@ -50,6 +50,10 @@ class _AdminScreenState extends State<AdminScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              CustomButton(title: "Create Specific user report", onTap: () {}),
+              0.02.sizeH(context),
+              CustomButton(title: "Create system report", onTap: () {}),
+              0.02.sizeH(context),
               CustomButton(
                   title: "View all logged in Students",
                   onTap: () => Navigator.pushNamed(

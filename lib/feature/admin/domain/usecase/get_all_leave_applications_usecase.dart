@@ -1,6 +1,5 @@
-import 'package:students_attendance_management_app/feature/admin/domain/repo/repo.dart';
-
 import '../../../for_students/domain/entity/applcation_entity.dart';
+import '../repo/admin_repo.dart';
 
 class GetAllLeaveApplicationsUseCase {
   final AdminRepo repo;
