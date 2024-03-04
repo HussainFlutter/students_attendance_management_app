@@ -126,7 +126,8 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
         final data =
             UserModel.fromSnapshot(result.data() as Map<String, dynamic>);
         //If its not the same month
-        if (!DateUtils.isSameMonth(data.lastGradedAt, data.lastAttendanceAt)) {
+        if (DateUtils.isSameMonth(data.lastGradedAt, data.lastAttendanceAt) ==
+            false) {
           //We grade the user
           if (data.attendedDays! >= 24) {
             // A grade
@@ -147,7 +148,7 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
             //F grade
             await changeGrade(uid: uid, grade: Grades.F);
           }
-        }
+        } else {}
       }
     } catch (e) {
       customPrint(message: e.toString());

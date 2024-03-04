@@ -97,8 +97,9 @@ class AdminRepoRemoteDataSourceImpl extends AdminRepoRemoteDataSource {
       }
       // Deleting from attendance collection
       await firestore.collection(attendanceCollection).doc(id).delete();
-      // Deleting from user myAttendance collection
+      //Minus attendedDays
       await sl<AddToAttendedDays>().call(uid, true);
+      // Deleting from user myAttendance collection
       await firestore
           .collection(userCollection)
           .doc(uid)

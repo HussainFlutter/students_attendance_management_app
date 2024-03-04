@@ -68,16 +68,15 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           } else {
             //Waiting just to show splash screen we can remove this at anytime
             await Future.delayed(const Duration(seconds: 2));
-            if (event2.context.mounted) {
-              Navigator.pushNamed(event2.context, RouteConsts.login);
-            }
+            Navigator.pushReplacementNamed(event2.context, RouteConsts.login);
           }
         }
       } else {
+        print("uid null");
         //Waiting just to show splash screen we can remove this at anytime
         await Future.delayed(const Duration(seconds: 2));
         if (event2.context.mounted) {
-          Navigator.pushNamed(event2.context, RouteConsts.login);
+          Navigator.pushReplacementNamed(event2.context, RouteConsts.login);
         }
       }
     } on FirebaseAuthException catch (e) {
