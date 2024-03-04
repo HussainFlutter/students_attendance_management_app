@@ -39,18 +39,19 @@ class UserModel extends UserEntity {
         );
 
   factory UserModel.fromSnapshot(Map<String, dynamic> data) {
+    final String? grade = data["grade"];
     return UserModel(
       createAt: data["createAt"].toDate(),
       lastAttendanceAt: data["lastAttendanceAt"]?.toDate(),
+      lastGradedAt: data["lastGradedAt"].toDate(),
       name: data["name"],
       uid: data["uid"],
       attendance: data["attendance"],
       admin: data["admin"],
       profilePic: data["profilePic"],
       email: data["email"],
-      grade: data["grade"].toGrade(),
+      grade: grade?.toGrade(),
       attendedDays: data["attendedDays"],
-      lastGradedAt: data["lastGradedAt"],
     );
   }
 

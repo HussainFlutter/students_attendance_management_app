@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:students_attendance_management_app/core/constants.dart';
 import 'package:students_attendance_management_app/feature/auth/domain/entity/user_entity.dart';
-import 'package:students_attendance_management_app/feature/for_students/presentation/bloc/home_bloc.dart';
 import 'package:students_attendance_management_app/feature/z_global_widgets/custon_button.dart';
 
 import '../widgets/show_attendance_status.dart';
@@ -24,18 +22,19 @@ class _HomeScreenState extends State<HomeScreen> {
   //   }
   // }
 
-  @override
-  void initState() {
-    // initialize();
-    // FlutterBackgroundService().invoke("start_background_service");
-    super.initState();
-    context.read<HomeBloc>().add(CheckAttendanceEvent(
-        email: widget.currentUser.email!, uid: widget.currentUser.uid!));
-  }
+  // @override
+  // void initState() {
+  //   // initialize();
+  //   // FlutterBackgroundService().invoke("start_background_service");
+  //   super.initState();
+  //   context.read<HomeBloc>().add(CheckAttendanceEvent(
+  //       email: widget.currentUser.email!, uid: widget.currentUser.uid!));
+  // }
 
   String? profilePic;
   @override
   Widget build(BuildContext context) {
+    print(widget.currentUser);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),

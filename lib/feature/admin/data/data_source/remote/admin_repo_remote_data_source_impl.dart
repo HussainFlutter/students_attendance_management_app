@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:students_attendance_management_app/feature/admin/data/data_source/remote/admin_repo_remote_data_source.dart';
 import 'package:students_attendance_management_app/feature/auth/data/model/user_model.dart';
 import 'package:students_attendance_management_app/feature/auth/domain/entity/user_entity.dart';
+import 'package:students_attendance_management_app/feature/auth/domain/usecases/add_to_attended_days.dart';
 import 'package:students_attendance_management_app/feature/auth/domain/usecases/update_user_usecase.dart';
 import 'package:students_attendance_management_app/feature/for_students/data/model/application_model.dart';
 import 'package:students_attendance_management_app/feature/for_students/data/model/attendance_model.dart';
@@ -97,6 +98,7 @@ class AdminRepoRemoteDataSourceImpl extends AdminRepoRemoteDataSource {
       // Deleting from attendance collection
       await firestore.collection(attendanceCollection).doc(id).delete();
       // Deleting from user myAttendance collection
+      await sl<AddToAttendedDays>().call(uid, true);
       await firestore
           .collection(userCollection)
           .doc(uid)

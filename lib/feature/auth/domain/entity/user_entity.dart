@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 enum Grades { A, B, C, D, E, F }
 
 extension Grading on String {
-  Grades toGrade() {
+  Grades? toGrade() {
     switch (this) {
       case "A":
         return Grades.A;
@@ -15,8 +15,10 @@ extension Grading on String {
         return Grades.D;
       case "E":
         return Grades.E;
-      default:
+      case "F":
         return Grades.F;
+      default:
+        return null;
     }
   }
 }
@@ -33,6 +35,7 @@ class UserEntity extends Equatable {
   final int? attendedDays;
   final DateTime? lastGradedAt;
   final Grades? grade;
+
   const UserEntity({
     this.attendedDays,
     this.lastGradedAt,

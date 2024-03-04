@@ -42,6 +42,9 @@ class UserRepoImpl extends UserRepo {
       dataSource.uploadProfilePic(profilePic: profilePic, uid: uid);
 
   @override
-  Future<void> addToAttendedDays({required String uid}) =>
-      dataSource.addToAttendedDays(uid: uid);
+  Future<void> addToAttendedDays({
+    required String uid,
+    required bool minus,
+  }) =>
+      dataSource.addToAttendedDays(uid: uid, minus: minus);
 }

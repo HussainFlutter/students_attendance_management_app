@@ -46,16 +46,18 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         if (user.uid != null) {
           //Waiting just to show splash screen we can remove this at anytime
           await Future.delayed(const Duration(seconds: 2));
-          if (event2.context.mounted) {
-            if (user.admin == true) {
-              // Navigate to admin panel
+          if (user.admin == true) {
+            // Navigate to admin panel
+            if (event2.context.mounted) {
               Navigator.popUntil(event2.context, (route) => route.isFirst);
               Navigator.pushReplacementNamed(
                 event2.context,
                 RouteConsts.adminScreen,
                 arguments: user,
               );
-            } else {
+            }
+          } else if (user.admin == false) {
+            if (event2.context.mounted) {
               Navigator.popUntil(event2.context, (route) => route.isFirst);
               Navigator.pushReplacementNamed(
                 event2.context,

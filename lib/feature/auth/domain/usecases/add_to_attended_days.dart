@@ -4,5 +4,9 @@ class AddToAttendedDays {
   final UserRepo repo;
 
   AddToAttendedDays({required this.repo});
-  Future<void> call(String uid) => repo.addToAttendedDays(uid: uid);
+  Future<void> call(
+    String uid,
+    bool minus,
+  ) =>
+      repo.addToAttendedDays(uid: uid, minus: minus);
 }

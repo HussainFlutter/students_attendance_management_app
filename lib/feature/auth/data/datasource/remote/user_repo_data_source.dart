@@ -18,5 +18,6 @@ abstract class UserRepoDataSource {
   });
   Future<void> addToAttendedDays({
     required String uid,
+    required bool minus,
   });
 }

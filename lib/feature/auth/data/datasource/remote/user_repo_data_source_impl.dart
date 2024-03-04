@@ -48,6 +48,8 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
         admin: false,
         email: userEntity.email,
         lastGradedAt: DateTime.now(),
+        grade: null,
+        attendedDays: 0,
       );
       await firestore.collection(user).doc(model.uid).set(
             model.toMap(),
@@ -152,13 +154,20 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
   @override
   Future<void> addToAttendedDays({
     required String uid,
+    required bool minus,
   }) async {
     try {
       final result = await firestore.collection(user).doc(uid).get();
       final int attendedDays = await result.get("attendedDays");
-      await firestore.collection(user).doc(uid).update({
-        "attendedDays": attendedDays + 1,
-      });
+      if (minus == true) {
+        await firestore.collection(user).doc(uid).update({
+          "attendedDays": attendedDays - 1,
+        });
+      } else {
+        await firestore.collection(user).doc(uid).update({
+          "attendedDays": attendedDays + 1,
+        });
+      }
     } catch (e) {
       customPrint(message: "uploadProfilePic $e");
       rethrow;

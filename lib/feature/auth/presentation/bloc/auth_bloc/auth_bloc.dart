@@ -60,7 +60,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _login(LoginEvent event) async {
     try {
       await login(email: event.email, password: event.password);
-      UserEntity user = const UserEntity();
+      UserEntity? user;
       final Completer<void> completer = Completer<void>();
       getUser().listen((event) {
         user = event;
@@ -73,14 +73,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ..onDone(() => completer.complete());
       await completer.future;
       if (event.context.mounted) {
-        if (user.admin == true) {
+        if (user != null && user!.admin == true) {
           Navigator.popUntil(event.context, (route) => route.isFirst);
           Navigator.pushReplacementNamed(
             event.context,
             RouteConsts.adminScreen,
             arguments: user,
           );
-        } else {
+        } else if (user != null) {
           Navigator.popUntil(event.context, (route) => route.isFirst);
           Navigator.pushReplacementNamed(
             event.context,
