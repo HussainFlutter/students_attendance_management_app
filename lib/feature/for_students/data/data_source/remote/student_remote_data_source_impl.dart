@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:students_attendance_management_app/feature/auth/domain/entity/user_entity.dart';
 import 'package:students_attendance_management_app/feature/auth/domain/usecases/add_to_attended_days.dart';
 import 'package:students_attendance_management_app/feature/for_students/data/data_source/remote/student_remote_data_source.dart';
@@ -104,12 +105,63 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
           .collection(user)
           .doc(uid)
           .collection(myAttendance)
+          .orderBy("markedAt", descending: true)
           .snapshots()
           .map((event) => event.docs.isEmpty
               ? null
               : event.docs
                   .map((e) => AttendanceModel.fromSnapshot(e.data()))
                   .toList());
+    } catch (e) {
+      customPrint(message: e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> markGrade({required String uid}) async {
+    try {
+      final result = await firestore.collection(user).doc(uid).get();
+      if (result.exists) {
+        final data =
+            UserModel.fromSnapshot(result.data() as Map<String, dynamic>);
+        //If its not the same month
+        if (!DateUtils.isSameMonth(data.lastGradedAt, data.lastAttendanceAt)) {
+          //We grade the user
+          if (data.attendedDays! >= 24) {
+            // A grade
+            await changeGrade(uid: uid, grade: Grades.A);
+          } else if (data.attendedDays! >= 19) {
+            //B grade
+            await changeGrade(uid: uid, grade: Grades.B);
+          } else if (data.attendedDays! >= 15) {
+            //C grade
+            await changeGrade(uid: uid, grade: Grades.C);
+          } else if (data.attendedDays! >= 12) {
+            //D grade
+            await changeGrade(uid: uid, grade: Grades.D);
+          } else if (data.attendedDays! >= 10) {
+            //E grade
+            await changeGrade(uid: uid, grade: Grades.E);
+          } else {
+            //F grade
+            await changeGrade(uid: uid, grade: Grades.F);
+          }
+        }
+      }
+    } catch (e) {
+      customPrint(message: e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> changeGrade({required String uid, required Grades grade}) async {
+    try {
+      await firestore.collection(user).doc(uid).update({
+        "grade": grade.toString(),
+        "attendedDays": 0,
+      });
     } catch (e) {
       customPrint(message: e.toString());
       rethrow;

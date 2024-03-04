@@ -12,4 +12,6 @@ abstract class StudentRepoRemoteDataSource {
   Stream<UserEntity> attendanceStatus({required String uid});
   Future<void> applyForLeave({required ApplicationEntity applicationEntity});
   Stream<List<AttendanceEntity>?> getStudentAttendance({required String uid});
+  Future<void> markGrade({required String uid});
+  Future<void> changeGrade({required String uid, required Grades grade});
 }

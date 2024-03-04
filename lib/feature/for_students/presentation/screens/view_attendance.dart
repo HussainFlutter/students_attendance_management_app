@@ -28,29 +28,26 @@ class _ViewAttendanceScreenState extends State<ViewAttendanceScreen> {
             if (snapshot.hasData) {
               if (snapshot.data!.isNotEmpty) {
                 final data = snapshot.data;
-                return Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      reverse: true,
-                      itemCount: data!.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(data[index].name!),
-                          subtitle: Text(
-                            data[index].attendance == true
-                                ? "Attended"
-                                : "Absent",
-                            style: TextStyle(
-                              color: data[index].attendance == true
-                                  ? Colors.green
-                                  : Colors.red,
-                            ),
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: data!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(data[index].name!),
+                        subtitle: Text(
+                          data[index].attendance == true
+                              ? "Attended"
+                              : "Absent",
+                          style: TextStyle(
+                            color: data[index].attendance == true
+                                ? Colors.green
+                                : Colors.red,
                           ),
-                          trailing: Text(DateFormat("dd-MM-yyyy")
-                              .format(data[index].markedAt!)),
-                        );
-                      }),
-                );
+                        ),
+                        trailing: Text(DateFormat("dd-MM-yyyy")
+                            .format(data[index].markedAt!)),
+                      );
+                    });
               } else {
                 return const Center(child: Text("No attendance marked yet"));
               }

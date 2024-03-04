@@ -29,4 +29,12 @@ class StudentRepoImpl extends StudentRepo {
   }) =>
       dataSource.markAttendance(
           name: name, uid: uid, attendance: attendance, email: email);
+
+  @override
+  Future<void> changeGrade({required String uid, required Grades grade}) =>
+      dataSource.changeGrade(uid: uid, grade: grade);
+
+  @override
+  Future<void> markGrade({required String uid}) =>
+      dataSource.markGrade(uid: uid);
 }

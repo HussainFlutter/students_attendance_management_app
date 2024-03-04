@@ -1,3 +1,5 @@
+import 'package:students_attendance_management_app/feature/for_students/domain/usecase/change_grade_usecase.dart';
+import 'package:students_attendance_management_app/feature/for_students/domain/usecase/mark_grade_usecase.dart';
 import 'package:students_attendance_management_app/feature/for_students/presentation/bloc/home_bloc.dart';
 
 import '../../main_injection_container.dart';
@@ -17,6 +19,7 @@ Future<void> studentInjection() async {
         attendanceStatus: sl<AttendanceStatusUseCase>(),
         getStudentAttendance: sl<GetStudentAttendanceUseCase>(),
         markAttendance: sl<MarkAttendanceUseCase>(),
+        markGrade: sl<MarkGradeUseCase>(),
       ));
   //Use cases
   sl.registerLazySingleton(() => ApplyForLeaveUseCase(repo: sl<StudentRepo>()));
@@ -26,7 +29,8 @@ Future<void> studentInjection() async {
       () => GetStudentAttendanceUseCase(repo: sl<StudentRepo>()));
   sl.registerLazySingleton(
       () => MarkAttendanceUseCase(repo: sl<StudentRepo>()));
-
+  sl.registerLazySingleton(() => MarkGradeUseCase(repo: sl<StudentRepo>()));
+  sl.registerLazySingleton(() => ChangeGradeUseCase(repo: sl<StudentRepo>()));
   //Repositories
   sl.registerLazySingleton<StudentRepo>(
       () => StudentRepoImpl(dataSource: sl<StudentRepoRemoteDataSource>()));

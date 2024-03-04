@@ -42,3 +42,12 @@ class SendApplicationEvent extends HomeEvent {
   @override
   List<Object?> get props => [paragraph, uid, name, context, email];
 }
+
+class MarkGradeEvent extends HomeEvent {
+  final String uid;
+
+  const MarkGradeEvent({required this.uid});
+
+  @override
+  List<Object?> get props => [uid];
+}

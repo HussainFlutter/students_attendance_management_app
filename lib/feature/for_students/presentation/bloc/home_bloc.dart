@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:students_attendance_management_app/core/constants.dart';
 import 'package:students_attendance_management_app/feature/for_students/domain/entity/applcation_entity.dart';
+import 'package:students_attendance_management_app/feature/for_students/domain/usecase/mark_grade_usecase.dart';
 
 import '../../../../main_injection_container.dart';
 import '../../../auth/domain/entity/user_entity.dart';
@@ -20,8 +21,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ApplyForLeaveUseCase applyForLeave;
   final AttendanceStatusUseCase attendanceStatus;
   final GetStudentAttendanceUseCase getStudentAttendance;
+  final MarkGradeUseCase markGrade;
   final MarkAttendanceUseCase markAttendance;
   HomeBloc({
+    required this.markGrade,
     required this.markAttendance,
     required this.getStudentAttendance,
     required this.attendanceStatus,
@@ -30,6 +33,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<MarkAttendanceEvent>((event, emit) => _markAttendance(event));
     on<CheckAttendanceEvent>((event, emit) => _checkAttendance(event));
     on<SendApplicationEvent>((event, emit) => _sendApplication(event));
+    on<MarkGradeEvent>((event, emit) => _markGrade(event));
+  }
+  _markGrade(
+    MarkGradeEvent event,
+  ) async {
+    try {
+      await markGrade(uid: event.uid);
+    } on FirebaseFirestore catch (e) {
+      toast(message: e.toString());
+    } catch (e) {
+      toast(message: e.toString());
+      rethrow;
+    }
   }
 
   _markAttendance(
@@ -37,10 +53,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     try {
       await markAttendance(
-          email: event.email,
-          name: event.name,
-          uid: event.uid,
-          attendance: true);
+        email: event.email,
+        name: event.name,
+        uid: event.uid,
+        attendance: true,
+      );
     } on FirebaseFirestore catch (e) {
       toast(message: e.toString());
     } catch (e) {

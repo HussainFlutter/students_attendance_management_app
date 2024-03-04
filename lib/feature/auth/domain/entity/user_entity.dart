@@ -5,17 +5,17 @@ enum Grades { A, B, C, D, E, F }
 extension Grading on String {
   Grades? toGrade() {
     switch (this) {
-      case "A":
+      case "Grades.A":
         return Grades.A;
-      case "B":
+      case "Grades.B":
         return Grades.B;
-      case "C":
+      case "Grades.C":
         return Grades.C;
-      case "D":
+      case "Grades.D":
         return Grades.D;
-      case "E":
+      case "Grades.E":
         return Grades.E;
-      case "F":
+      case "Grades.F":
         return Grades.F;
       default:
         return null;

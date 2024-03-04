@@ -71,9 +71,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     0.02.sizeH(context),
                     Text("Name: ${data!.name}"),
-                    data.grade == null
-                        ? const SizedBox()
-                        : Text("Grade: ${data.grade}"),
+                    data.admin == false
+                        ? data.grade == null
+                            ? const Text("Grade: Not Graded yet")
+                            : Text("Grade: ${data.grade}")
+                        : const SizedBox(),
                   ],
                 );
               } else {
