@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:students_attendance_management_app/core/constants.dart';
 import 'package:students_attendance_management_app/feature/admin/domain/usecase/get_all_student_attendances_usecase.dart';
 
-import '../../../../main_injection_container.dart';
+import '../../../../../main_injection_container.dart';
 
 class ViewStudentsAttendance extends StatefulWidget {
   const ViewStudentsAttendance({super.key});
@@ -72,6 +72,11 @@ class _ViewStudentsAttendanceState extends State<ViewStudentsAttendance> {
             return const Center(child: CircularProgressIndicator());
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () =>
+            Navigator.pushNamed(context, RouteConsts.addAttendanceScreen),
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -25,33 +25,37 @@ class _ViewAttendanceScreenState extends State<ViewAttendanceScreen> {
           // Checking if the connection is active
           if (snapshot.connectionState == ConnectionState.active) {
             // then showing attendance status
-            if (snapshot.data!.isNotEmpty) {
-              final data = snapshot.data;
-              return Expanded(
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    reverse: true,
-                    itemCount: data!.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(data[index].name!),
-                        subtitle: Text(
-                          data[index].attendance == true
-                              ? "Attended"
-                              : "Absent",
-                          style: TextStyle(
-                            color: data[index].attendance == true
-                                ? Colors.green
-                                : Colors.red,
+            if (snapshot.hasData) {
+              if (snapshot.data!.isNotEmpty) {
+                final data = snapshot.data;
+                return Expanded(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      reverse: true,
+                      itemCount: data!.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(data[index].name!),
+                          subtitle: Text(
+                            data[index].attendance == true
+                                ? "Attended"
+                                : "Absent",
+                            style: TextStyle(
+                              color: data[index].attendance == true
+                                  ? Colors.green
+                                  : Colors.red,
+                            ),
                           ),
-                        ),
-                        trailing: Text(DateFormat("dd-MM-yyyy")
-                            .format(data[index].markedAt!)),
-                      );
-                    }),
-              );
+                          trailing: Text(DateFormat("dd-MM-yyyy")
+                              .format(data[index].markedAt!)),
+                        );
+                      }),
+                );
+              } else {
+                return const Center(child: Text("No attendance marked yet"));
+              }
             } else {
-              return const Text("No attendance marked yet");
+              return const Center(child: Text("No attendance marked yet"));
             }
           } else if (snapshot.connectionState == ConnectionState.none) {
             return const Center(

@@ -5,7 +5,7 @@ import 'package:students_attendance_management_app/core/constants.dart';
 import 'package:students_attendance_management_app/feature/admin/presentation/widgets/approve_and_disapprive_button.dart';
 import 'package:students_attendance_management_app/feature/for_students/domain/entity/attendance_entity.dart';
 
-import '../bloc/admin_bloc.dart';
+import '../../bloc/admin_bloc.dart';
 
 class AttendanceDetailsPage extends StatefulWidget {
   final AttendanceEntity attendance;

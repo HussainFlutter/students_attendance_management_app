@@ -26,6 +26,7 @@ Future<void> studentInjection() async {
       () => GetStudentAttendanceUseCase(repo: sl<StudentRepo>()));
   sl.registerLazySingleton(
       () => MarkAttendanceUseCase(repo: sl<StudentRepo>()));
+
   //Repositories
   sl.registerLazySingleton<StudentRepo>(
       () => StudentRepoImpl(dataSource: sl<StudentRepoRemoteDataSource>()));

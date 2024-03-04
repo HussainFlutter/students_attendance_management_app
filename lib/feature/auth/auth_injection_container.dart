@@ -14,6 +14,7 @@ import 'package:students_attendance_management_app/feature/auth/presentation/blo
 
 import '../../main_injection_container.dart';
 import 'data/datasource/remote/user_repo_data_source.dart';
+import 'domain/usecases/add_to_attended_days.dart';
 
 Future<void> authInjection() async {
   // Blocs
@@ -35,6 +36,7 @@ Future<void> authInjection() async {
   sl.registerLazySingleton(() => UploadProfilePicUseCase(repo: sl<UserRepo>()));
   sl.registerLazySingleton(
       () => SignInWithEmailAndPasswordUseCase(repo: sl<UserRepo>()));
+  sl.registerLazySingleton(() => AddToAttendedDays(repo: sl<UserRepo>()));
   // Repositories
   sl.registerLazySingleton<UserRepo>(
       () => UserRepoImpl(dataSource: sl<UserRepoDataSource>()));

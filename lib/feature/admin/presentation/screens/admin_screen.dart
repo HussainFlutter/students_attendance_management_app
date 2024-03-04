@@ -47,34 +47,57 @@ class _AdminScreenState extends State<AdminScreen> {
           horizontal: 0.1.mediaW(context),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CustomButton(title: "Create Specific user report", onTap: () {}),
-              0.02.sizeH(context),
-              CustomButton(title: "Create system report", onTap: () {}),
-              0.02.sizeH(context),
-              CustomButton(
-                  title: "View all logged in Students",
-                  onTap: () => Navigator.pushNamed(
+          child: TweenAnimationBuilder(
+            duration: const Duration(milliseconds: 500),
+            tween: Tween<Offset>(
+                begin: const Offset(1, 0), end: const Offset(0, 0)),
+            builder: (context, val, child) {
+              return AnimatedSlide(
+                offset: val,
+                duration: const Duration(milliseconds: 500),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomButton(
+                      title: "Search Specific Students ",
+                      onTap: () => Navigator.pushNamed(
                         context,
-                        RouteConsts.loggedInStudentsScreen,
-                      )),
-              0.02.sizeH(context),
-              CustomButton(
-                  title: "View Students Attendance",
-                  onTap: () => Navigator.pushNamed(
+                        RouteConsts.searchSpecificUserScreen,
+                      ),
+                    ),
+                    0.02.sizeH(context),
+                    CustomButton(
+                      title: "Search all Students",
+                      onTap: () => Navigator.pushNamed(
                         context,
-                        RouteConsts.viewAllAttendance,
-                      )),
-              0.02.sizeH(context),
-              CustomButton(
-                  title: "View Leave Applications",
-                  onTap: () => Navigator.pushNamed(
-                        context,
-                        RouteConsts.viewApplications,
-                      )),
-            ],
+                        RouteConsts.searchAllStudentsScreen,
+                      ),
+                    ),
+                    0.02.sizeH(context),
+                    CustomButton(
+                        title: "View all logged in Students",
+                        onTap: () => Navigator.pushNamed(
+                              context,
+                              RouteConsts.loggedInStudentsScreen,
+                            )),
+                    0.02.sizeH(context),
+                    CustomButton(
+                        title: "View Students Attendance",
+                        onTap: () => Navigator.pushNamed(
+                              context,
+                              RouteConsts.viewAllAttendance,
+                            )),
+                    0.02.sizeH(context),
+                    CustomButton(
+                        title: "View Leave Applications",
+                        onTap: () => Navigator.pushNamed(
+                              context,
+                              RouteConsts.viewApplications,
+                            )),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),

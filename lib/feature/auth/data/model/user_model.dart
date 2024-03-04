@@ -9,8 +9,13 @@ class UserModel extends UserEntity {
   final bool? attendance;
   final bool? admin;
   final String? email;
-
+  final int? attendedDays;
+  final DateTime? lastGradedAt;
+  final Grades? grade;
   const UserModel({
+    this.attendedDays,
+    this.lastGradedAt,
+    this.grade,
     this.attendance,
     this.uid,
     this.email,
@@ -28,6 +33,9 @@ class UserModel extends UserEntity {
           lastAttendanceAt: lastAttendanceAt,
           admin: admin,
           email: email,
+          grade: grade,
+          lastGradedAt: lastGradedAt,
+          attendedDays: attendedDays,
         );
 
   factory UserModel.fromSnapshot(Map<String, dynamic> data) {
@@ -40,6 +48,9 @@ class UserModel extends UserEntity {
       admin: data["admin"],
       profilePic: data["profilePic"],
       email: data["email"],
+      grade: data["grade"].toGrade(),
+      attendedDays: data["attendedDays"],
+      lastGradedAt: data["lastGradedAt"],
     );
   }
 
@@ -53,6 +64,9 @@ class UserModel extends UserEntity {
       "admin": admin,
       "profilePic": profilePic,
       "email": email,
+      "grade": grade.toString(),
+      "attendedDays": attendedDays,
+      "lastGradedAt": lastGradedAt,
     };
   }
 }

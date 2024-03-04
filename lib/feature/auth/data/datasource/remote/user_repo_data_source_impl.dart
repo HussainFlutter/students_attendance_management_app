@@ -43,10 +43,11 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
         name: userEntity.name,
         uid: userEntity.uid,
         createAt: DateTime.now(),
-        lastAttendanceAt: null,
+        lastAttendanceAt: DateTime.now(),
         attendance: false,
         admin: false,
         email: userEntity.email,
+        lastGradedAt: DateTime.now(),
       );
       await firestore.collection(user).doc(model.uid).set(
             model.toMap(),
@@ -130,8 +131,10 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
   }
 
   @override
-  Future<void> uploadProfilePic(
-      {required String profilePic, required String uid}) async {
+  Future<void> uploadProfilePic({
+    required String profilePic,
+    required String uid,
+  }) async {
     try {
       final image = await storage.ref(uid).putFile(File(profilePic));
       final imageUrl = await image.ref.getDownloadURL();
@@ -140,6 +143,22 @@ class UserRepoDataSourceImpl extends UserRepoDataSource {
         profilePic: imageUrl,
         uid: uid,
       ));
+    } catch (e) {
+      customPrint(message: "uploadProfilePic $e");
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> addToAttendedDays({
+    required String uid,
+  }) async {
+    try {
+      final result = await firestore.collection(user).doc(uid).get();
+      final int attendedDays = await result.get("attendedDays");
+      await firestore.collection(user).doc(uid).update({
+        "attendedDays": attendedDays + 1,
+      });
     } catch (e) {
       customPrint(message: "uploadProfilePic $e");
       rethrow;

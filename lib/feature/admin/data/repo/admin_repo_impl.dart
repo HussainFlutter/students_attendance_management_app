@@ -29,4 +29,28 @@ class AdminRepoImpl extends AdminRepo {
   @override
   Future<void> updateAttendance({required AttendanceEntity attendance}) =>
       dataSource.updateAttendance(attendance: attendance);
+
+  @override
+  Future<void> addAttendance(
+          {required String email, required bool attendance}) =>
+      dataSource.addAttendance(email: email, attendance: attendance);
+
+  @override
+  Future<List<AttendanceEntity>> fromToDateStudentAttendance({
+    required DateTime fromDate,
+    required DateTime toDate,
+    required String email,
+  }) =>
+      dataSource.fromToDateStudentAttendance(
+          fromDate: fromDate, toDate: toDate, email: email);
+
+  @override
+  Future<List<AttendanceEntity>> fromToDateOfAllStudentAttendance({
+    required DateTime fromDate,
+    required DateTime toDate,
+  }) =>
+      dataSource.fromToDateOfAllStudentAttendance(
+        fromDate: fromDate,
+        toDate: toDate,
+      );
 }

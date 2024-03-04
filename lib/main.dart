@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:students_attendance_management_app/config/on_generate_route.dart';
 import 'package:students_attendance_management_app/core/constants.dart';
 import 'package:students_attendance_management_app/feature/admin/presentation/bloc/admin_bloc.dart';
+import 'package:students_attendance_management_app/feature/admin/presentation/bloc/get_all_students_attendance_bloc.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:students_attendance_management_app/feature/auth/presentation/bloc/splash_bloc/splash_bloc.dart';
 import 'package:students_attendance_management_app/main_injection_container.dart';
@@ -13,7 +14,6 @@ import 'firebase_options.dart';
 
 // BIG BUG : if the student does not login everyday then the app cannot register his/her attendance
 // i will try to fix this using background services but for now i left it like this
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => sl<AdminBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<GetAllStudentsAttendanceBloc>(),
           ),
         ],
         child: MaterialApp(

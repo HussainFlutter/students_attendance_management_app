@@ -40,4 +40,8 @@ class UserRepoImpl extends UserRepo {
   Future<void> uploadProfilePic(
           {required String profilePic, required String uid}) =>
       dataSource.uploadProfilePic(profilePic: profilePic, uid: uid);
+
+  @override
+  Future<void> addToAttendedDays({required String uid}) =>
+      dataSource.addToAttendedDays(uid: uid);
 }
