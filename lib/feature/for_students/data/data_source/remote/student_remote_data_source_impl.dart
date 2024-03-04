@@ -161,6 +161,7 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
       await firestore.collection(user).doc(uid).update({
         "grade": grade.toString(),
         "attendedDays": 0,
+        "lastGradeAt": DateTime.now(),
       });
     } catch (e) {
       customPrint(message: e.toString());
