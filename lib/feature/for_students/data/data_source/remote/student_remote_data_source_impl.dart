@@ -50,7 +50,9 @@ class StudentRepoRemoteDataSourceImpl extends StudentRepoRemoteDataSource {
             .collection(myAttendance)
             .doc(id)
             .set(attendanceModel.toMap());
-        await sl<AddToAttendedDays>().call(uid, false);
+        attendanceModel.attendance == true
+            ? await sl<AddToAttendedDays>().call(uid, false)
+            : null;
         //Adding attendance to the attendance collection
         await firestore
             .collection(attendanceCollection)

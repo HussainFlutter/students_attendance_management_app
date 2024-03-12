@@ -47,6 +47,7 @@ dependencies:
   uuid: ^4.3.3
   flutter_background_service: ^5.0.5
   flutter_background_service_ios: ^5.0.0
+  #flutter_background_service_android:
   cached_network_image: ^3.3.1
   image_picker: ^1.0.7
   firebase_storage: ^11.6.7
